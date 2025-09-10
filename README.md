@@ -32,4 +32,4 @@ Notion - это сервис для создания заметок и текс�
 ![img.png](images/user_geography.png)
 
 ### Устройства пользователей
-[img.png](images/devices.png)
+![img.png](images/devices.png)
