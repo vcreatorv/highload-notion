@@ -511,3 +511,19 @@ Anycast — сетевая технология, при которой один 
 - last_opened_at: 8 байт
 
   Итого: ~(10 × 100 млн) = 1 млрд × 104 байт → ~104 Гб
+
+### Требования к консистентности
+
+| Таблица             | Консистентность                                                 |
+| ------------------- | --------------------------------------------------------------- |
+| **User**            | Strong                                                     |
+| **Page**            | Sequential / Causal                                         |
+| **Attachment**      | Strong (мета в БД) / Eventual (доступ к файлу в S3) |
+| **ACL**             | Strong                                                      |
+| **Version**         | Strong                                                      |
+| **Pending_Version** | Sequential / Causal                                         |
+| **Share_Link**      | Strong                                                    |
+| **Page_View**       | Eventual                                                   |
+| **Favourite**       | Sequential / Causal                                        |
+| **Recent**          | Eventual                                                    |
+
