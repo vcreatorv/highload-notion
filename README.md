@@ -834,4 +834,10 @@ notion, min_gram=2 → no, not, noti, notio, notion.
 - Redis Sentinel: Обеспечение отказоустойчивости сессий (кэша);
 - Database Migrations: Автоматизированные, идемпотентные миграции с механизмами отката
 
-  
+### Схема сервиса
+
+![img.png](images/notion-v1.drawio.png)
+
+#### Взаимодействией внутри k8s
+
+![img.png](images/notion-k8s.drawio.png)
