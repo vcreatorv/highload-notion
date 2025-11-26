@@ -895,3 +895,16 @@ notion, min_gram=2 → no, not, noti, notio, notion.
 
 `ClickHouse` будет сохранять все логи сервисов, поэтому в него будет лететь также немало RPS. Под хранение логов выделим 10 Тб, логи будут храниться не больше 14 дней.
 
+### Расчет количества и комлектации серверов
+
+Сервисы Envoy, API Gateway, Page Service, Search Service, ACL Service, Share Service, Attach Service, Views Service, Auth Service, User Service, Activity Service будут жить в одинаковых по количеству ресурсов подах, поэтому под них выделим одинаковые сервера, которые назовем Kube node. Суммарно на всех Kube node должно быть не менее чем 56x16=896 Гб RAM и 366x16=5856 CPU.
+
+| Сервис     | Хостинг | Конфигурация                                        | Cores | Count | Покупка | Аренда/Амортизация |
+|-----------|---------|------------------------------------------------------|-------|-------|---------|--------------------|
+| Kube node | own     | 2U/2xAMD EPYC 7302P/2x32GB/1xNVMe1T/2x10Gb/s         | 2x16  | 192   |   -     |   -                |
+| Redis     | own     | 1U/1xAMD EPYC 7302P/1x32GB/1xNVMe256G/2x10Gb/s       | 1x16  | 16    |   -     |   -                |
+| PostgreSQL| own     | 2U/2xAMD EPYC 7513/2x32GB/4xNVMe4T/2x25Gb/s          | 2x32  | 25    |   -     |   -                |
+| ElasticSearch | own | 2U/2xAMD EPYC 7302P/2x32GB/4xNVMe8T/2x25Gb/s         | 2x16  | 22–25 |   -     |   -                |
+| ClickHouse| own     | 2U/2xAMD EPYC 7513/2x32GB/1xNVMe1T/2x25Gb/s          | 2x32  | 13–16 |   -     |   -                |
+| AWS S3    | cloud   | Managed object storage (4 Пб)                        |  -    |  -    |   pay-as-you-go | -          |
+
